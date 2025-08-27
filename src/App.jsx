@@ -3,7 +3,7 @@ import FaceDetection from './components/FaceDetection'
 import './App.css'
 import Songslist from './components/Songslist'
 import Header from './components/Header'
-import getGradientByMood from './utils/getGradientByMood'
+
 
 
 
@@ -13,12 +13,10 @@ function App() {
     ]);
   const [mood, setMood] = useState("neutral");
 
-   const gradientClass = getGradientByMood(mood);
-
   return (
-    <div className={`min-h-screen w-full bg-gradient-to-b ${gradientClass} from-purple-700 via-indigo-800 to-purple-900`}>
+    <div className={`min-h-screen w-full bg-gradient-to-b from-purple-700 via-indigo-800 to-purple-900`}>
       <Header/>
-      <FaceDetection onMoodDetected={setMood} setSongs={setSongs}/>
+      <FaceDetection setSongs={setSongs}/>
       <Songslist Songs={Songs}/>
     </div>
       
