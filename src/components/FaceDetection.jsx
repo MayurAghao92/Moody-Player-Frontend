@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
-import axios from 'axios'
-const FaceDetection = ({setSongs}) => {
+import axios from "axios";
+
+
+const FaceDetection = ({ setSongs,onMoodDetected  }) => {
   const videoRef = useRef();
   const [expression, setExpression] = useState("");
 
@@ -13,7 +15,6 @@ const FaceDetection = ({setSongs}) => {
         faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
         faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
       ]);
-
       startVideo();
     };
 
@@ -38,7 +39,6 @@ const FaceDetection = ({setSongs}) => {
       .withFaceExpressions();
 
     if (!detections || detections.length === 0) {
-      console.log("No face detected");
       setExpression("No face detected");
       return;
     }
@@ -55,30 +55,36 @@ const FaceDetection = ({setSongs}) => {
     }
 
     setExpression(result);
-    console.log(result);
-    axios.get(`http://localhost:3000/songs?mood=${result}`).then(response=>{
-      console.log(response.data)
-      setSongs(response.data.songs)
-    })
+    axios.get(`http://localhost:3000/songs?mood=${result}`).then((response) => {
+      setSongs(response.data.songs);
+    });
+    
   };
 
   return (
-  
-    <div className="w-[100%] p-10 flex gap-10 items-center">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        width="300"
-        height="300"
-        className="rounded-2xl shadow-lg"
-      />
-      <button
-        onClick={detectOnce}
-        className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-      >
-        Detect Mood
-      </button>
+    <div className="w-full  flex justify-center items-center p-6 bg-gradient-to-br from-purple-700 via-indigo-800 to-purple-900">
+      <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-8 max-w-md w-full flex flex-col items-center gap-6 border border-white/10">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          width="300"
+          height="300"
+          className="rounded-2xl shadow-md border border-white/20"
+        />
+        <button
+          onClick={detectOnce}
+          className="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl shadow-lg hover:scale-105 transition"
+        >
+          Detect Mood
+        </button>
+        {expression && (
+          <p className="text-lg text-white font-semibold">
+            Detected Mood:{" "}
+            <span className="text-yellow-300 capitalize">{expression}</span>
+          </p>
+        )}
+      </div>
     </div>
   );
 };
