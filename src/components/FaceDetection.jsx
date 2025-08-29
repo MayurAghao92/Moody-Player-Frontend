@@ -70,8 +70,8 @@ const FaceDetection = ({ setSongs }) => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center p-6 bg-gradient-to-br from-purple-700 via-indigo-800 to-purple-900">
-      <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-8 max-w-md w-full flex flex-col items-center gap-6 border border-white/10">
+    <div className="w-full flex justify-center items-center p-6 ">
+      <div className="bg-white/5 backdrop-blur-md rounded-2xl  p-8 max-w-md w-full flex flex-col items-center gap-6 border border-white/10">
         
         {/* Video feed */}
         <video

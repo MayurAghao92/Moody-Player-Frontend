@@ -4,18 +4,27 @@ const SongCard = ({ song, isPlaying, onPlay, onStop }) => {
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [hasPlayed, setHasPlayed] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
 
     if (isPlaying) {
-      audio.currentTime = 0;
+      if (!hasPlayed) {
+        audio.currentTime = 0;
+        setHasPlayed(true);
+      }
       audio.play();
     } else {
       audio.pause();
-      audio.currentTime = 0;
     }
   }, [isPlaying]);
+
+  useEffect(() => {
+  if (!isPlaying) {
+    setHasPlayed(false);
+  }
+}, [isPlaying]);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -49,49 +58,50 @@ const SongCard = ({ song, isPlaying, onPlay, onStop }) => {
   const progressPercentage = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-   <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-md p-3 flex items-center gap-3 text-white sm:flex-col sm:items-start sm:p-5 w-full">
+    <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-md p-3 flex items-center gap-3 text-white sm:flex-col sm:items-start sm:p-5 w-full">
+      <div className="flex-1 min-w-0">
+        <h3 className="text-sm sm:text-lg font-semibold truncate text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-500 to-yellow-500 font-[Pacifico]">
+          {song.title}
+        </h3>
+        <p className="text-xs sm:text-sm truncate text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-500 to-yellow-500 font-[Pacifico]">
+          {song.artist}
+        </p>
+      </div>
 
-  <div className="flex-1 min-w-0">
-    <h3 className="text-sm sm:text-lg font-semibold truncate font-[Pacifico]">{song.title}</h3>
-    <p className="text-xs sm:text-sm text-gray-300 truncate font-[Pacifico]">{song.artist}</p>
-  </div>
+      <audio
+        ref={audioRef}
+        src={song.audio}
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={() => setDuration(audioRef.current.duration)}
+        onEnded={onStop}
+      />
 
-  <audio
-    ref={audioRef}
-    src={song.audio}
-    onTimeUpdate={handleTimeUpdate}
-    onLoadedMetadata={() => setDuration(audioRef.current.duration)}
-    onEnded={onStop}
-  />
+      <div className="flex-shrink-0 w-40 sm:w-full">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={progressPercentage}
+          onChange={handleSeek}
+          className="w-full accent-pink-400"
+        />
+        <div className="flex justify-between text-xs mt-1 text-gray-300">
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
+      </div>
 
-
-  <div className="flex-shrink-0 w-40 sm:w-full">
-    <input
-      type="range"
-      min="0"
-      max="100"
-      value={progressPercentage}
-      onChange={handleSeek}
-      className="w-full accent-pink-400"
-    />
-    <div className="flex justify-between text-xs mt-1 text-gray-300">
-      <span>{formatTime(currentTime)}</span>
-      <span>{formatTime(duration)}</span>
+      <button
+        onClick={handlePlayPause}
+        className="text-pink-400 hover:text-pink-600 text-3xl sm:text-4xl flex-shrink-0"
+      >
+        {isPlaying ? (
+          <i className="ri-pause-circle-line"></i>
+        ) : (
+          <i className="ri-play-circle-line"></i>
+        )}
+      </button>
     </div>
-  </div>
-
-  <button
-    onClick={handlePlayPause}
-    className="text-pink-400 hover:text-pink-600 text-3xl sm:text-4xl flex-shrink-0"
-  >
-    {isPlaying ? (
-      <i className="ri-pause-circle-line"></i>
-    ) : (
-      <i className="ri-play-circle-line"></i>
-    )}
-  </button>
-</div>
-
   );
 };
 
