@@ -68,10 +68,10 @@ const SongCard = ({ song, isPlaying, onPlay, onStop }) => {
       )}
 
       <div className="flex-1 min-w-0">
-        <h3 className="text-base sm:text-lg font-semibold truncate text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-500 to-yellow-500 font-[Pacifico]">
+        <h3 className="text-base sm:text-lg font-semibold truncate text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 font-[Pacifico]">
           {song.title}
         </h3>
-        <p className="text-sm sm:text-base truncate text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-500 to-yellow-500 font-[Pacifico]">
+        <p className="text-sm sm:text-base truncate text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 font-[Pacifico]">
           {song.artist}
         </p>
       </div>
@@ -81,12 +81,14 @@ const SongCard = ({ song, isPlaying, onPlay, onStop }) => {
         src={song.audio}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)}
-        onEnded={onStop}
+        onEnded={() => {
+          onStop();
+          if (onEnd) onEnd();
+        }}
       />
 
       {isPlaying && (
         <div className="flex-shrink-0 w-40 sm:w-full space-y-2">
-          
           <div className="relative w-full h-2 bg-white/20 rounded-full overflow-hidden group cursor-pointer">
             <div
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400 transition-all duration-300"

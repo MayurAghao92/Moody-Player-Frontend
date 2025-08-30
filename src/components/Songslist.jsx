@@ -7,7 +7,7 @@ const Songslist = ({ Songs, scrollRef }) => {
   const [currentlyPlayingIndex, setCurrentlyPlayingIndex] = useState(null);
 
   useEffect(() => {
-    AOS.init({ duration: 600, easing: "ease-out-cubic" });
+    AOS.init({ duration: 600, easing: "ease-out-cubic" });  
   }, []);
 
   return (
@@ -34,7 +34,6 @@ const Songslist = ({ Songs, scrollRef }) => {
         </div>
       </div>
 
-      {/* Songs Grid */}
       {Songs.length > 0 ? (
         <div
           ref={scrollRef}

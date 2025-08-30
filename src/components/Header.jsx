@@ -8,7 +8,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="w-full sticky top-0 z-50 text-center py-8 backdrop-blur-md bg-black/20 border-b border-white/10">
+    <div className="w-full sticky top-0 z-50 text-center py-8 backdrop-blur-md bg-black/20 border-b border-white/10 rounded-2xl">
       <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
         <h1 className="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 tracking-wide drop-shadow-2xl font-[Pacifico] mb-2 animate-pulse">
           Moody <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Player</span>
