@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 import axios from "axios";
 
-const FaceDetection = ({ setSongs }) => {
+const FaceDetection = ({ setSongs,recommendationsRef }) => {
   const videoRef = useRef();
   const [expression, setExpression] = useState("");
   const [cameraStarted, setCameraStarted] = useState(false);
@@ -67,13 +67,17 @@ const FaceDetection = ({ setSongs }) => {
       .then((response) => {
         setSongs(response.data.songs);
       });
+
+      setTimeout(() => {
+      recommendationsRef?.current?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
   };
 
   return (
     <div className="w-full flex justify-center items-center p-6 ">
       <div className="bg-white/5 backdrop-blur-md rounded-2xl  p-8 max-w-md w-full flex flex-col items-center gap-6 border border-white/10">
         
-        {/* Video feed */}
+       
         <video
           ref={videoRef}
           autoPlay
@@ -84,7 +88,7 @@ const FaceDetection = ({ setSongs }) => {
           style={{ display: cameraStarted ? "block" : "none" }}
         />
 
-        {/* Open Camera Button */}
+        
         {!cameraStarted && (
           <button
             onClick={startCamera}
@@ -94,7 +98,7 @@ const FaceDetection = ({ setSongs }) => {
           </button>
         )}
 
-        {/* Detect Mood Button */}
+       
         {cameraStarted && (
           <button
             onClick={detectOnce}
@@ -104,7 +108,6 @@ const FaceDetection = ({ setSongs }) => {
           </button>
         )}
 
-        {/* Result Display */}
         {expression && (
           <p className="text-lg text-white font-semibold">
             Detected Mood:{" "}
