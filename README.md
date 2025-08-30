@@ -1,12 +1,79 @@
-# React + Vite
+# 🎵 Moody Player - AI-Powered Music Recommendation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application that uses facial expression recognition to detect your mood and recommend music accordingly. Built with React, Vite, and Face-API.js.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🤖 **AI Mood Detection**: Real-time facial expression analysis using Face-API.js
+- 🎧 **Smart Music Recommendations**: Get personalized song suggestions based on your detected mood
+- 🎨 **Beautiful UI**: Modern, responsive design with smooth animations and gradients
+- 📱 **Mobile Friendly**: Fully responsive design that works on all devices
+- 🌈 **Dynamic Theming**: Background changes based on detected mood
+- 🎵 **Interactive Music Player**: Built-in music player with controls
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React 18 + Vite
+- **Styling**: Tailwind CSS
+- **Animations**: AOS (Animate On Scroll)
+- **AI/ML**: Face-API.js for facial expression recognition
+- **Icons**: Remix Icons
+- **Fonts**: Google Fonts (Pacifico, Poppins)
+
+## 🛠️ Installation & Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Make sure your backend server is running on `http://localhost:3000`
+
+## 📋 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🎯 How It Works
+
+1. **Start Camera**: Grant camera permissions to begin
+2. **Detect Mood**: AI analyzes your facial expression in real-time
+3. **Get Recommendations**: Receive curated songs based on your detected mood
+4. **Enjoy Music**: Play and enjoy your personalized playlist
+
+## 🎨 Supported Moods
+
+- 😊 Happy
+- 😢 Sad  
+- 😠 Angry
+- 😮 Surprised
+- 😨 Fearful
+- 🤢 Disgusted
+- 😐 Neutral
+
+## 🔧 Configuration
+
+Make sure to place the Face-API.js models in the `public/models` directory for the facial recognition to work properly.
+
+## 📱 Browser Compatibility
+
+- Chrome 60+
+- Firefox 60+
+- Safari 12+
+- Edge 79+
+
+Camera access required for mood detection functionality.
+
+## 🤝 Contributing
+
+Feel free to submit issues and enhancement requests!
+
+## 📄 License
+
+This project is open source and available under the MIT License.
